@@ -1,0 +1,23 @@
+{
+  "name": "here-routing",
+  "version": "0.1.0",
+  "description": "Routing functions for Here maps",
+  "main": "hereRouting.js",
+  "scripts": {
+    "test": "semistandard && mocha"
+  },
+  "keywords": [
+    "routing",
+    "here",
+    "geojson"
+  ],
+  "author": "Cem Caliskan <caliskan@bulwiengesa.de>",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "semistandard": "^9.2.1"
+  }
+}
