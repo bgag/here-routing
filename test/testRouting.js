@@ -1,6 +1,4 @@
-/**
- * Created by caliskan on 05.12.16.
- */
+/* global describe it */
 
 var assert = require('assert');
 var Routing = require('../hereRouting');
@@ -57,6 +55,8 @@ describe('hereRouting', function () {
 
       var result = routing.calculateIsoline(start, distance);
       return result.then(function (result) {
+        console.log(JSON.stringify(result));
+
         assert.ok(result.type);
         assert.equal(result.type, 'Feature');
         assert.equal(result.geometry.type, 'Polygon');

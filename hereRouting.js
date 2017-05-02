@@ -54,7 +54,7 @@ HereRouting.prototype.calculateIsoline = function (start, distance, options) {
         /* split each points string to two string points, e.g. "52.5139618,13.3354282" -> "52.5139618","13.3354282"
          * then parse each string to float
          */
-        return item.split(',').map(function (item) {
+        return item.split(',').reverse().map(function (item) {
           return parseFloat(item);
         });
       });
