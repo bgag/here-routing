@@ -1,6 +1,6 @@
 {
   "name": "here-routing",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Routing functions for Here maps",
   "main": "hereRouting.js",
   "scripts": {

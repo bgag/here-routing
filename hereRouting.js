@@ -36,8 +36,7 @@ HereRouting.prototype.calculateMatrix = function (start, destination) {
   // divide destinations in chunks of hundred, since HereRouting allows only for 100 destinations per request
   let numberChunks = Math.ceil(destination.features.length / 100)
   let querys       = []
-  // start feature coordinates already lat/long, so no reverse needed
-  let startParam   = start.geometry.coordinates/*.reverse()*/.join(',')
+  let startParam   = start.geometry.coordinates.slice().reverse().join(',')
   for (let chunk = 0; chunk < numberChunks; chunk++){
     let queryParams = {
       app_id: this.appId,
@@ -49,8 +48,7 @@ HereRouting.prototype.calculateMatrix = function (start, destination) {
     let numberFeatures = (chunk < numberChunks-1) ? 100 : destination.features.length - (numberChunks - 1) * 100
 
     for (let i = 0; i < numberFeatures; i++){
-      // destination features coordinates in long/lat, so first reverse
-      queryParams['destination'+i] = destination.features[i+(100*chunk)].geometry.coordinates.reverse().join(',')
+      queryParams['destination'+i] = destination.features[i+(100*chunk)].geometry.coordinates.slice().reverse().join(',')
     }
     let url = HereRouting.defaults.baseUrlMatrix+'?'+querystring.stringify(queryParams)
     // collect fetches to let them run parallel in Promise.all
@@ -75,7 +73,9 @@ HereRouting.prototype.calculateMatrix = function (start, destination) {
           })
           return 1
         })
-        .catch(err=>err)
+        .catch(err=>{
+          return err
+        })
     )
   }
   return Promise.all(querys)
@@ -96,7 +96,7 @@ HereRouting.prototype.calculateIsoline = function (start, distance, options) {
 
   let queryParams = {
     mode: options.mode || this.mode || HereRouting.defaults.mode,
-    start: start.geometry.coordinates.reverse().join(','),
+    start: start.geometry.coordinates.slice().reverse().join(','),
     rangetype: options.rangeType || HereRouting.defaults.rangeType,
     range: distance,
     app_id: this.appId,
